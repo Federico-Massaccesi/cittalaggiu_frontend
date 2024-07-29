@@ -1,0 +1,148 @@
+<div
+*ngIf="!admin"
+ class="container d-flex justify-content-center align-items-center vh-90">
+  <div class="card rounded-5 m-5 p-5" style="width: 28rem">
+    <form>
+      <h4 *ngIf="!privateOrCompany"class="text-center">Registrati come cliente privato:</h4>
+      <h4 *ngIf="privateOrCompany" class="text-center">Registrati come azienda:</h4>
+      <input
+        type="text"
+        name="username"
+        [(ngModel)]="registerData.username"
+        class="form-control my-4 rounded-5 w-100"
+        placeholder="Username"
+      />
+      <input
+      type="email"
+        name="email"
+        [(ngModel)]="registerData.email"
+        class="form-control my-4 rounded-5 w-100"
+        placeholder="Email"
+        />
+        <input
+        type="password"
+        name="password"
+        [(ngModel)]="registerData.password"
+        class="form-control my-4 rounded-5 w-100"
+        placeholder="Password"
+        />
+        <input
+          type="text"
+          name="address"
+          [(ngModel)]="registerData.address"
+          class="form-control my-4 rounded-5 w-100"
+          placeholder="Indirizzo"
+        />
+        <input
+          type="text"
+          name="town"
+          [(ngModel)]="registerData.town"
+          class="form-control my-4 rounded-5 w-100"
+          placeholder="Città"
+        />
+        <input
+          type="text"
+          name="CAP"
+          [(ngModel)]="registerData.cap"
+          class="form-control my-4 rounded-5 w-100"
+          placeholder="CAP"
+        />
+        <input
+          type="number"
+          name="telephoneNumber"
+          [(ngModel)]="registerData.telephoneNumber"
+          class="form-control my-4 rounded-5 w-100"
+          placeholder="Numero di cellulare"
+        />
+      <!-- Campi visibili solo se la checkbox è spuntata -->
+      <input
+        *ngIf="privateOrCompany"
+        type="text"
+        name="companyName"
+        [(ngModel)]="registerData.companyName"
+        class="form-control my-4 rounded-5 w-100"
+        placeholder="Nome azienda"
+      />
+      <input
+        *ngIf="privateOrCompany"
+        type="text"
+        name="vat"
+        [(ngModel)]="registerData.piva"
+        class="form-control my-4 rounded-5 w-100"
+        placeholder="Partita IVA"
+      />
+      <div
+      *ngIf="!privateOrCompany"
+      class="d-flex align-items-center mb-4">
+        <a (click)="privateOrCompany = !privateOrCompany"
+        ><i class="bi bi-check-square"></i></a>
+        <span
+        class="ms-2">Sei un azienda?</span>
+      </div>
+      <div
+      *ngIf="privateOrCompany"
+      class="d-flex align-items-center mb-4">
+        <a (click)="privateOrCompany = !privateOrCompany"
+        ><i class="bi bi-check-square"></i></a>
+        <span
+        class="ms-2">Sei un privato?</span>
+      </div>
+
+      <div
+      *ngIf="!privateOrCompany"
+      class="d-flex align-items-center mb-4">
+        <a (click)="admin = !admin"
+        ><i class="bi bi-check-square"></i></a>
+        <span
+        class="ms-2">Sei un amministratore?</span>
+      </div>
+      <div class="d-flex align-items-center mb-4">
+        <input type="checkbox" [(ngModel)]="registerData.newsletter" name="newsletter" />
+        <span class="ms-2">Iscriviti alla newsletter</span>
+      </div>
+      <button (click)="signUpClient()" class="btn-center button">Registrati</button>
+    </form>
+  </div>
+</div>
+
+<!-- ADMINTEMPLATE -->
+<div
+*ngIf="admin"
+class="container d-flex justify-content-center align-items-center vh-90">
+  <div class="card rounded-5 m-5 p-5" style="width: 28rem">
+    <form>
+      <h4 *ngIf="!admin"class="text-center">Registrati come amministratore:</h4>
+      <input
+        type="text"
+        name="username"
+        [(ngModel)]="registerDataAdmin.username"
+        class="form-control my-4 rounded-5 w-100"
+        placeholder="Username"
+      />
+        <input
+        type="password"
+        name="password"
+        [(ngModel)]="registerDataAdmin.password"
+        class="form-control my-4 rounded-5 w-100"
+        placeholder="Password"
+        />
+        <div
+
+      class="d-flex align-items-center mb-4">
+        <a (click)="admin = !admin"
+        ><i class="bi bi-check-square"></i></a>
+        <span
+        class="ms-2">Sei un cliente?</span>
+      </div>
+      <div
+      class="d-flex align-items-center mb-4">
+        <input
+        (click)="warehouse = !warehouse"
+          type="checkbox"
+        />
+        <span class="ms-2">Sei un dipendente del magazzino?</span>
+      </div>
+      <button (click)="signUpAdmin()" class="btn-center button">Registrati</button>
+    </form>
+  </div>
+</div>

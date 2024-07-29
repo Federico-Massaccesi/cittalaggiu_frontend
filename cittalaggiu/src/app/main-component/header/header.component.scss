@@ -1,0 +1,35 @@
+header {
+  background-color: #0f0d10;
+}
+
+.header-image {
+  max-height: 80px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #fff;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+}
+
+.button {
+  background-color: #fff;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+@media (max-width: 991px) {
+  .nav {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+  }
+
+  .nav-link {
+    margin-bottom: 0;
+  }
+}

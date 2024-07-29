@@ -1,0 +1,64 @@
+<div
+  class="card mb-4"
+>
+  <div class="row ">
+    <div class="col-12 px-4 image-container">
+      <img class="product-image" [src]="product.imageURL" [alt]="product.name" />
+    </div>
+    <div class="row">
+      <div class="card-body">
+        <p class="cardTitle text-truncate">{{ product.name }}</p>
+        <div class="d-flex flex-column align-items-end text-end">
+          <p class="fs-1">{{ product.price | currency : "EUR" }}</p>
+          <div class="d-flex justify-content-evenly">
+            <button
+              type="button"
+              class="button me-2"
+              [routerLink]="['/product-details', product.id]"
+            >
+              Dettagli
+            </button>
+            <div *ngIf="isUser">
+              <button
+                class="button"
+                *ngIf="!showTooltip[product.id!] && product.available"
+                (click)="toggleTooltip()"
+              >
+                <i class="bi bi-bag-plus-fill"></i>
+              </button>
+            </div>
+          </div>
+          <div class="row justify-content-center col-12" *ngIf="showTooltip[product.id!]">
+            <label for="quantity">Quantità:</label>
+            <div class="input-group mb-3">
+              <input
+                type="number"
+                [(ngModel)]="quantity"
+                id="quantity"
+                name="quantity"
+                min="0"
+                class="form-control"
+                [value]="quantity"
+              />
+              <p *ngIf="quantityWarnings">
+                Imposta una quantità maggiore di 0 per aggiungere al carrello.
+              </p>
+            </div>
+            <button class="align-self-center button col-12 col-lg-10" (click)="addToCart()">Conferma quantità nel carrello</button>
+            <button
+              *ngIf="productInCart && quantity > 0"
+              (click)="removeFromCart()"
+              class="button mt-3 col-10"
+            >
+              Rimuovi dal carrello
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <i placement="start" ngbTooltip="Il prodotto tornerà presto disponibile"
+  class="bi bi-ban availability-icon" *ngIf="!product.available"></i>
+</div>
+
+

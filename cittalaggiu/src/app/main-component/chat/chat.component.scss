@@ -1,0 +1,122 @@
+.chat-container {
+  border-radius: 5px;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 350px;
+  background: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  max-height: 50px; /* Collapsed height */
+  z-index: 100;
+  transition: max-height 0.3s ease;
+}
+
+.chat-container.expanded {
+border-radius: 5px;
+  height: 400px;
+  max-height: 400px; /* Expanded height */
+}
+
+.chat-header {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.chat-icon {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+.chat-title {
+  padding: 10px 0;
+
+  color: white;
+  flex-grow: 1;
+  background-color: #25204f;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#chatbox {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+#messages {
+  flex-grow: 1;
+  margin-bottom: 10px;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.input-field {
+  flex-grow: 1;
+  padding: 5px;
+  margin-right: 5px;
+  box-sizing: border-box;
+}
+
+input,
+button {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+}
+
+input:focus,
+button:focus {
+  border-color: #0056b3;
+}
+
+div {
+  margin-bottom: 5px;
+}
+
+div:nth-child(odd) {
+  background-color: #f1f1f1;
+}
+
+.send-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px; /* Adjusted width */
+  height: 40px; /* Adjusted height */
+  font-family: inherit;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 14px; /* Smaller font size */
+  padding: 0; /* Removed padding */
+  color: white;
+  background: #ad5389;
+  background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+  border: none;
+  border-radius: 50%; /* Circular button */
+}
+
+.send-button svg {
+  width: 20px; /* Adjusted size */
+  height: 20px; /* Adjusted size */
+  transform: rotate(30deg);
+  transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.send-button:hover svg {
+  transform: translateX(5px) rotate(90deg);
+}

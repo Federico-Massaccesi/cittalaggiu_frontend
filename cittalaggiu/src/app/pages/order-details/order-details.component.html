@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="card mt-4" *ngIf="order">
+    <div class="card-header fw-bold">
+      Order #{{ order.id }}
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Cliente: {{ order.client.username }}</h5>
+      <p class="card-text">Prezzo totale: {{ order.totalPrice | currency }}</p>
+      <p class="card-text">Data ordine: {{ order.localDate | date }}</p>
+      <p class="card-text">Città: {{ order.client.town }}</p>
+      <p class="card-text">Via: {{ order.client.address }}</p>
+      <div class="row flex-column flex-sm-row align-items-center justify-content-sm-end">
+        <button class="button col-11 col-sm-3 mt-3" (click)="printOrder()">
+          {{ !order.completed && isWarehouse ? 'Stampa e archivia ordine' : 'Stampa' }}
+        </button>
+        <button type="button " class="button mt-3 col-11 col-sm-3 mx-sm-2"
+        (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]=
+        "!isCollapsed" aria-controls="collapseExample">Prodotti</button>
+      </div>
+      <div *ngIf="showError" class="text-danger mt-2">
+        Per archiviare l'ordine, seleziona tutti i prodotti.
+      </div>
+      <div [ngbCollapse]="isCollapsed" class="mt-2">
+        <div class="card">
+          <div class="card-body">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item" *ngFor="let item of order.items; let i = index">
+                <div (click)="toggleCheckbox(i)" style="cursor: pointer;">
+                  <input *ngIf="isWarehouse" type="checkbox" [checked]="checkedItems[i]" (click)="$event.stopPropagation()" (change)="toggleCheckbox(i)">
+                  {{ item.product.name }} - {{ item.quantity }} pz
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

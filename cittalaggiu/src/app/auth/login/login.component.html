@@ -1,0 +1,51 @@
+<div class="container d-flex justify-content-center align-items-center vh-90">
+  <div class="card rounded-3 m-5 p-5">
+    <div class="container">
+      <div class="row">
+        <div class="col d-flex justify-content-center">
+          <form class="text-center">
+            <div class="container d-flex justify-content-center">
+              <h4 class="text-center">Login:</h4>
+            </div>
+            <div class="container d-flex justify-content-center">
+              <input
+                type="email"
+                [(ngModel)]="loginData.username"
+                name="email"
+                class="mt-3 rounded-5 py-1 ps-1 small-placeholder w-100"
+                placeholder="Username"
+              />
+            </div>
+            <div class="container">
+              <div
+                *ngIf="submitted && !loginData.username"
+                role="alert"
+              >
+                Il campo Username è obbligatorio.
+              </div>
+            </div>
+            <div class="container d-flex justify-content-center">
+              <input
+                type="password"
+                [(ngModel)]="loginData.password"
+                name="password"
+                class="mt-4 rounded-5 py-1 ps-1"
+                placeholder="Password"
+              />
+            </div>
+            <div class="container">
+              <div
+                *ngIf="submitted && !loginData.password"
+              >
+                Il campo Password è obbligatorio.
+              </div>
+            </div>
+            <div class="container d-flex justify-content-center mt-4">
+              <button (click)="signIn()" class="button">Accedi</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

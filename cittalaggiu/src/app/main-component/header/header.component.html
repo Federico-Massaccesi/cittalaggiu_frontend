@@ -1,0 +1,34 @@
+<header class="d-flex flex-wrap align-items-center justify-content-between py-3 ">
+  <div class="col-12 col-lg-3 mb-2 mb-lg-0 text-center ps-4 text-lg-start">
+    <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
+      <img
+        class="img-fluid header-image"
+        src="https://t3.ftcdn.net/jpg/04/03/00/68/360_F_403006870_h8lU4z0wxIi93XSW2tKaaeFODuCF4ugb.jpg"
+      />
+    </a>
+  </div>
+
+  <ul class="nav col-12 col-lg-auto fs-5 mb-2 justify-content-around mb-lg-0">
+    <li *ngIf="!isUser && (isAuthenticated$ | async)" class="nav-link text-center  px-2">
+      <a routerLink="/orderList" class="nav-link text-white">Ordini</a>
+    </li>
+    <li *ngIf="isUser || isAdmin || isWarehouse" class="nav-link text-center  px-2">
+      <a routerLink="/productList" class="nav-link text-white">Prodotti</a>
+    </li>
+    <li *ngIf="isAdmin" class="nav-link px-2">
+      <a routerLink="/userList" class="nav-link text-white text-center ">Utenti</a>
+    </li>
+    <li *ngIf="isUser" class="nav-link px-2">
+      <a [routerLink]="['/profile', getLoggedUserId()]" class="nav-link text-white text-center ">Profilo</a>
+    </li>
+  </ul>
+
+  <div class="col-12 col-lg-3 text-center text-lg-end mt-3 mt-lg-0">
+    <button type="button" (click)="logout();" class="button me-3" *ngIf="isAuthenticated$ | async">Logout</button>
+    <button type="button" routerLink="/auth/login" class="button me-3" *ngIf="!(isAuthenticated$ | async)">Login</button>
+    <button type="button" routerLink="/auth/register" class="button" *ngIf="!(isAuthenticated$ | async)">Register</button>
+    <button *ngIf="isUser && (isAuthenticated$ | async)" type="button" routerLink="/cart" class="button">
+      <i class="bi bi-cart-check"></i>
+    </button>
+  </div>
+</header>

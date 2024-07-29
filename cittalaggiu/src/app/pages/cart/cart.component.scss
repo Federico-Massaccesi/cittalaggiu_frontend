@@ -1,0 +1,94 @@
+#payLater {
+  opacity: 0;
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.custom-checkbox {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  background-color: white;
+  border: 2px solid #e6dc5b;
+  border-radius: 3px;
+  position: relative;
+  cursor: pointer;
+}
+
+.custom-checkbox::after {
+  content: '';
+  position: absolute;
+  display: none;
+  left: 7px;
+  top: 3px;
+  width: 6px;
+  height: 12px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+#payLater:checked + .custom-checkbox {
+  background-color: #e6dc5b;
+}
+
+#payLater:checked + .custom-checkbox::after {
+  display: block;
+}
+
+.custom-checkbox:hover {
+  background-color: #e6dc5b;
+}
+
+img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+
+.product-card {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.buttonCart {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  font-size: 1.5rem;
+  border: 1px solid #a09b96;
+  color: black;
+  font-weight: 400;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+  transition: all 0.5s ease;
+}
+
+.buttonCart::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  background: #333333;
+  position: absolute;
+  bottom: -100%;
+  left: 0;
+  border-radius: 50%;
+  z-index: -1;
+  transition: all 0.5s ease;
+}
+
+.button i {
+  margin: 0;
+  font-size: 0.9rem;
+}
+

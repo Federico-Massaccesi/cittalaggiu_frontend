@@ -1,0 +1,154 @@
+<div class=" row justify-content-center p-0 m-0">
+  <div class="search-container text-white mt-3">
+    <i class="bi bi-search" (click)="toggleSearchBar()"></i>
+    <div class="search-bar-container" [class.active]="isSearchBarActive">
+      <input
+        type="text"
+        class="search-bar mb-4"
+        placeholder="Cerca..."
+        (input)="updateSearchQuery($event)"
+      />
+    </div>
+  </div>
+  <div class="row" *ngIf="searchQuery.length > 0">
+    <ng-container *ngIf="results.length > 0; else noResultsFound">
+      <h2 class="text-white">I tuoi risultati</h2>
+      <div class="col-md-6 col-lg-3" *ngFor="let result of results">
+        <app-product-card
+          [product]="result"
+          [isUser]="isUser"
+        ></app-product-card>
+      </div>
+    </ng-container>
+    <ng-template #noResultsFound>
+      <h2 class="text-white">Nessun risultato trovato</h2>
+    </ng-template>
+  </div>
+  <div *ngIf="isAdmin" class="row text-center d-block my-4 fs-5 justify-content-center col-11 col-sm-7 col-md-5 col-lg-4 col-xl-2 text-black">
+    <button class="col-3 col-xl-4 rounded-circle" (click)="open(content)"><i class="bi bi-plus-circle"></i></button>
+  </div>
+  <div class="row justify-content-center" *ngIf="searchQuery.length === 0">
+    <h2 class="my-2 text-center text-white mb-5 fs-1">I nostri prodotti:</h2>
+    <div class="col-sm-6 col-lg-3" *ngFor="let prod of products">
+      <app-product-card [product]="prod" [isUser]="isUser"></app-product-card>
+    </div>
+  </div>
+  <ng-template #loading>
+    <p class="text-white">Loading products...</p>
+  </ng-template>
+</div>
+
+<!-- TEMPLATE MODALE -->
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Aggiungi un nuovo prodotto</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form
+      #productForm="ngForm"
+      (ngSubmit)="onSubmit(productForm)"
+      enctype="multipart/form-data"
+    >
+      <div class="input-group row">
+        <div class="mx-auto col-10 mb-3">
+          <input
+            type="text"
+            required
+            name="name"
+            class="form-control rounded-5"
+            id="name"
+            [(ngModel)]="newProduct.name"
+            placeholder="Nome del prodotto"
+          />
+        </div>
+        <div class="mx-auto col-10  mb-3">
+          <input
+            type="number"
+            required
+            name="price"
+            class="form-control rounded-5"
+            id="price"
+            [(ngModel)]="newProduct.price"
+            placeholder="Prezzo"
+          />
+        </div>
+        <div class="mx-auto col-10  mb-3">
+          <div class="mx-auto col-12 mb-3">
+            <textarea
+              required
+              name="description"
+              class="form-control rounded-5"
+              id="description"
+              [(ngModel)]="newProduct.description"
+              placeholder="Descrizione. Max 255 caratteri"
+              rows="4"
+              (input)="onDescriptionInput($event)"
+            ></textarea>
+            <p *ngIf="descriptionError" class="text-danger mt-2">
+              Descrizione. Max 255 caratteri
+            </p>
+          </div>
+        </div>
+        <div class="mx-auto col-10  mb-3">
+          <input
+            type="file"
+            required
+            name="file"
+            class="form-control rounded-5"
+            id="file"
+            (change)="onFileSelected($event)"
+            accept="image/*"
+          />
+        </div>
+        <div class="mx-auto col-10  mb-3">
+          <label for="categories">Seleziona le categorie:</label>
+          <select
+            id="categories"
+            name="categories"
+            class="custom-select rounded-5 w-100"
+            multiple
+            required
+            [(ngModel)]="selectedCategoryIds"
+            #categories="ngModel"
+          >
+            <option
+              *ngFor="let category of allCategories"
+              [ngValue]="category.id"
+            >
+              {{ category.name }}
+            </option>
+          </select>
+        </div>
+        <div class="mx-auto col-10  mb-3">
+          <input
+            name="available"
+            [(ngModel)]="availableCreate"
+            type="checkbox"
+          />
+          <span class="col-10  ms-2">Questo prodotto è già disponibile?</span>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="button"
+      (click)="modal.close('Save click')"
+      [disabled]="descriptionError"
+    >
+    <ng-container *ngIf="descriptionError; else saveText">
+      <i class="bi bi-ban"></i>
+    </ng-container>
+    <ng-template #saveText>Save</ng-template>
+    </button>
+  </div>
+</ng-template>
+
+<hr />
